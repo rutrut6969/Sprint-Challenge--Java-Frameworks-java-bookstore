@@ -1,7 +1,11 @@
 package com.lambdaschool.foundation.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -21,7 +25,7 @@ public class Author extends Auditable{
     public Author() {
     }
 
-    public Author(String lastname, String firstname) {
+    public Author(String firstname, String lastname) {
         this.lastname = lastname;
         this.firstname = firstname;
     }
@@ -49,6 +53,12 @@ public class Author extends Auditable{
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    @OneToMany(mappedBy = "author",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "author",
+            allowSetters = true)
+    private List<Wrote> wrotes = new ArrayList<>();
 
     @Override
     public String toString() {

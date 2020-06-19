@@ -4,10 +4,14 @@ import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.Author;
 import com.lambdaschool.foundation.repository.AuthorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
+@Service(value = "authorService")
 public class AuthorServiceImpl implements AuthorService{
 
     @Autowired

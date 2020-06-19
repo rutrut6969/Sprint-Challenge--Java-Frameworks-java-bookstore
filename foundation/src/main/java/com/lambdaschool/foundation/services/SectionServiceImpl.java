@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.services;
 
+import com.lambdaschool.foundation.exceptions.ResourceFoundException;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.Section;
 import com.lambdaschool.foundation.repository.SectionRepo;
@@ -23,6 +24,9 @@ public class SectionServiceImpl implements SectionService {
         Section section = new Section();
 
         section.setSectionname(newSection.getSectionname());
+        if (newSection.getBooks().size() > 0){
+            throw new ResourceFoundException("Don't add Books inside of a section");
+        }
 
 
         return secRepo.save(section);
@@ -63,7 +67,7 @@ public class SectionServiceImpl implements SectionService {
     @Override
     public void deleteSection(long id) {
 
-        Section section = findSectionById(id)
+        Section section = findSectionById(id);
         secRepo.delete(section);
 
     }

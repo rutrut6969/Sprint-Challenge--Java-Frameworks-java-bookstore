@@ -26,9 +26,16 @@ public class Section extends Auditable{
     public Section() {
     }
 
-    public Section(long sectionid, String sectionname) {
-        this.sectionid = sectionid;
+    public Section(String sectionname){
         this.sectionname = sectionname;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public long getSectionid() {

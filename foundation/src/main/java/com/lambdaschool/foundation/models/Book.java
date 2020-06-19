@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -33,14 +35,29 @@ public class Book extends Auditable{
             allowSetters = true)
     private Section section;
 
+    @OneToMany(mappedBy = "book",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "book",
+            allowSetters = true)
+    private List<Wrote> wrotes = new ArrayList<>();
+
+
+
     public Book() {}
 
-    public Book(long bookid, String booktitle, String isbn, int copy, @NotNull Section section) {
-        this.bookid = bookid;
+    public Book(String booktitle, String isbn, int copy, @NotNull Section section) {
         this.booktitle = booktitle;
         this.isbn = isbn;
         this.copy = copy;
         this.section = section;
+    }
+
+    public List<Wrote> getWrotes() {
+        return wrotes;
+    }
+
+    public void setWrotes(List<Wrote> wrotes) {
+        this.wrotes = wrotes;
     }
 
     public Section getSection() {
